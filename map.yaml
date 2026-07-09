@@ -70,7 +70,7 @@ Actors:
 		Location: 55,72
 		Owner: Evolved
 
-	Actor14: evolved_building_beastforge 
+	EvolvedMenagerie: evolved_building_beastforge 
 		Location: 50,72
 		Owner: Evolved
 
@@ -82,98 +82,35 @@ Actors:
 		Location: 53,68
 		Owner: Evolved
 
-	Actor17: survivors_building_barracks
+	SurvivorsBarracks: survivors_building_barracks
 		Location: 76,68
 		Owner: Survivors
 
-	
-	Entry1: waypoint
-		Location: 1,50
+	Actor17: evolved_tower_rotarycannon
+		Location: 55,77
 		Owner: Evolved
-	Entry2: waypoint
-		Location: 1,27
-		Owner: Neutral
-	Entry3: waypoint
-		Location: 10,1
-		Owner: Neutral
-	Entry4: waypoint
-		Location: 84,1
-		Owner: Neutral
-	Entry5: waypoint
-		Location: 126,27
-		Owner: Neutral
-	Entry6: waypoint
-		Location: 46,1
-		Owner: Neutral
-	Entry7: waypoint
-		Location: 1,79
-		Owner: Neutral
-	AttackDest: waypoint
-		Location: 55,69
-		Owner: Neutral
-	LstEntry: waypoint
-		Location: 33,126
-		Owner: Neutral
-	LstUnload: waypoint
-		Location: 60,93
-		Owner: Neutral
-	Chinook1Entry: waypoint
-		Location: 45,126
-		Owner: Neutral
-	Chinook2Entry: waypoint
-		Location: 48,126
-		Owner: Neutral
-	Paradrop1: waypoint
-		Location: 70,50
-		Owner: Neutral
-	Paradrop2: waypoint
-		Location: 39,50
-		Owner: Neutral
-	Paradrop3: waypoint
-		Location: 81,60
-		Owner: Neutral
-	Paradrop4: waypoint
-		Location: 28,64
-		Owner: Neutral
-	Paradrop5: waypoint
-		Location: 63,89
-		Owner: Neutral
-	Paradrop6: waypoint
-		Location: 22,77
-		Owner: Neutral
-	Paradrop7: waypoint
-		Location: 64,69
-		Owner: Neutral
-	Paradrop8: waypoint
-		Location: 80,78
-		Owner: Neutral
-	ChronoshiftLocation: waypoint
-		Location: 80,65
-		Owner: Neutral
-	Mig11: waypoint
-		Location: 94,1
-		Owner: Neutral
-	Mig12: waypoint
-		Location: 68,33
-		Owner: Neutral
-	Mig13: waypoint
-		Location: 41,38
-		Owner: Neutral
-	Mig14: waypoint
-		Location: 1,26
-		Owner: Neutral
-	Mig21: waypoint
-		Location: 96,3
-		Owner: Neutral
-	Mig22: waypoint
-		Location: 70,35
-		Owner: Neutral
-	Mig23: waypoint
-		Location: 41,40
-		Owner: Neutral
-	Mig24: waypoint
-		Location: 1,28
-		Owner: Neutral
+
+	Actor18: survivors_building_machineshop
+		Location: 78,73
+		Owner: Survivors
+
+	Actor19: survivors_infantry_rpglauncher
+		Location: 68,73
+		Owner: Survivors
+	
+	Actor20: survivors_infantry_rpglauncher
+		Location: 74,74
+		Owner: Survivors
+
+	Actor21: survivors_tower_guardtower
+		Location: 75,68
+		Owner: Survivors
+
+	
+
+
+	
+
 
 
 
@@ -186,8 +123,19 @@ Actors:
 
 Rules:
 
-LuaScript:
-	Scripts: shellmap.lua
+
+
+
+World:
+	-CrateSpawner:
+	-AutoSave:
+	-SpawnStartingUnits:
+	-MapStartingLocations:
+
+	LuaScript:
+		Scripts: shellmap.lua
+	-StartGameNotification:
+	CameraOvalMover
 
 survivors_building_barracks:
 	Inherits@1: ^CoreBuilding

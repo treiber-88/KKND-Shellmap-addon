@@ -1,24 +1,16 @@
 
-UnitTypes = {  "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher" }
-	BeachUnitTypes = { "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher"}
-	ProxyType = "powerproxy.paratroopers"
+--[[UnitTypes = {  "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher" }
+	BeachUnitTypes = { "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher"}]]
 	ProducedUnitTypes =
 	{
-		{ factory = SurvivorsBarracks, types = { "survivors_building_barracks" } },
+		{ factory = SurvivorsBarracks, types = { "survivors_infantry_rpglauncher" } },
 		--{ factory = AlliedWarFactory1, types = { "jeep", "1tnk", "2tnk", "arty", "ctnk" } },
 		{ factory = EvolvedMenagerie, types = { "evolved_vehicle_missilecrab" } }
 	}
-end
 
-ShipUnitTypes = { "evolved_vehicle_missilecrab", "evolved_vehicle_missilecrab" }
-HelicopterUnitTypes = { "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher", "survivors_infantry_rpglauncher" };
 
-ParadropWaypoints = { Paradrop1, Paradrop2, Paradrop3, Paradrop4, Paradrop5, Paradrop6, Paradrop7, Paradrop8 }
 
-Mig1Waypoints = { Mig11, Mig12, Mig13, Mig14 }
-Mig2Waypoints = { Mig21, Mig22, Mig23, Mig24 }
-
-BindActorTriggers = function(a)
+-BindActorTriggers == function(a)
 	if a.HasProperty("Hunt") then
 		if a.Owner == Survivors then
 			Trigger.OnIdle(a, function(a)
@@ -29,7 +21,7 @@ BindActorTriggers = function(a)
 		else
 			Trigger.OnIdle(a, function(a)
 				if a.IsInWorld then
-					a.AttackMove(AlliedTechnologyCenter.Location)
+					a.AttackMove(SurvivorsPowerstation.Location)
 				end
 			end)
 		end
@@ -81,9 +73,9 @@ BindActorTriggers = function(a)
 			end
 		end)
 	end
-end
+end 
 
-SendSovietUnits = function(entryCell, unitTypes, interval)
+--[[SendSovietUnits = function(entryCell, unitTypes, interval)
 	local units = Reinforcements.Reinforce(Evolved, unitTypes, { entryCell }, interval)
 	Utils.Do(units, function(unit)
 		BindActorTriggers(unit)
@@ -91,17 +83,6 @@ SendSovietUnits = function(entryCell, unitTypes, interval)
 	Trigger.OnAllKilled(units, function() SendSovietUnits(entryCell, unitTypes, interval) end)
 end
 
-SendMigs = function(waypoints)
-	local migEntryPath = { waypoints[1].Location, waypoints[2].Location }
-	local migs = Reinforcements.Reinforce(Evolved, { "evolved_vehicle_missilecrab" }, migEntryPath, 4)
-	Utils.Do(migs, function(mig)
-		mig.Move(waypoints[3].Location)
-		mig.Move(waypoints[4].Location)
-		mig.Destroy()
-	end)
-
-	Trigger.AfterDelay(DateTime.Seconds(5), function() SendMigs(waypoints) end)
-end
 
 ShipAlliedUnits = function()
 	local units = Reinforcements.ReinforceWithTransport(Survivors, "survivors_infantry_rpglauncher",
@@ -157,8 +138,6 @@ WorldLoaded = function()
 	Trigger.AfterDelay(DateTime.Seconds(5), ChronoshiftAlliedUnits)
 	Utils.Do(ProducedUnitTypes, ProduceUnits)
 
-	Trigger.AfterDelay(DateTime.Seconds(5), function() SendMigs(Mig1Waypoints) end)
-	Trigger.AfterDelay(DateTime.Seconds(5), function() SendMigs(Mig2Waypoints) end)
 
 	SendSovietUnits(Entry1.Location, UnitTypes, 50)
 	SendSovietUnits(Entry2.Location, UnitTypes, 50)
@@ -167,4 +146,4 @@ WorldLoaded = function()
 	SendSovietUnits(Entry5.Location, UnitTypes, 50)
 	SendSovietUnits(Entry6.Location, UnitTypes, 50)
 	SendSovietUnits(Entry7.Location, BeachUnitTypes, 15)
-end
+end ]]
