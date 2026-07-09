@@ -1,0 +1,692 @@
+MapFormat: 11
+RequiresMod: openkrush_gen1
+Title: Shellmap
+Author: OpenKrush Team
+Tileset: highland
+MapSize: 130,130
+Bounds: 1,1,128,128
+Visibility: Shellmap
+Categories: Shellmap
+Players:
+	PlayerReference@Survivors:
+		Name: Evolved
+		OwnsWorld: True
+		NonCombatant: False
+		Faction: Random
+	PlayerReference@Evolved:
+		Name: Survivors
+		NonCombatant: False
+		Faction: Random
+
+	
+Actors:
+
+	
+	Actor2: survivors_infantry_rpglauncher
+		Location: 72,72
+		Owner: Survivors
+
+	Actor3: survivors_building_repairbay
+		Location: 75,75
+		Owner: Survivors
+	
+	Actor5: survivors_vehicle_anacondatank
+		Location: 76, 75
+		Owner: Survivors
+
+	Actor6: survivors_building_powerstation
+		Location: 75,70
+		Owner: Survivors
+	
+	Actor7: survivors_building_powerstation
+		Location: 70,78
+		Owner: Survivors
+
+	Actor7: survivors_building_machineshop
+		Location: 78,73
+		Owner: Survivors
+
+	Actor8: survivors_infantry_rpglauncher
+		Location: 73,73
+		Owner: Survivors
+	
+	Actor9: survivors_infantry_rpglauncher
+		Location: 73,74
+		Owner: Survivors
+
+	Actor10: survivors_tower_guardtower
+		Location: 73,68
+		Owner: Survivors
+
+	Actor11: evolved_tower_rotarycannon
+		Location: 55,68
+		Owner: Evolved
+
+	Actor12: evolved_tower_rotarycannon
+		Location: 55,70
+		Owner: Evolved
+
+	Actor13: evolved_tower_rotarycannon
+		Location: 55,72
+		Owner: Evolved
+
+	Actor14: evolved_building_beastforge 
+		Location: 50,72
+		Owner: Evolved
+
+	Actor15: evolved_vehicle_derrick
+		Location: 50,68
+		Owner: Evolved
+	
+	Actor16: evolved_building_holding_pen
+		Location: 53,68
+		Owner: Evolved
+
+	Actor17: survivors_building_barracks
+		Location: 76,68
+		Owner: Survivors
+
+
+
+
+
+	
+
+
+Rules:
+
+survivors_building_barracks:
+	Inherits@1: ^CoreBuilding
+	Inherits@2: ^produces_infantry
+	Inherits@3: ^animated_building
+	Inherits@4: ^researchable
+	Tooltip:
+		Name: Barracks
+	Valued:
+		Cost: 500
+	Health:
+		HP: 3000
+	TechLevelBuildable:
+		BuildDuration: 500
+		Prerequisites: survivors_buildings
+	SaboteurConquerable:
+		Population: 2
+	ProvidesPrerequisite:
+		Prerequisite: survivors_infantry
+	ProvidesPrerequisite@base:
+		Prerequisite: survivors_base
+		RequiresCondition: !selfconstructing && !deconstructing
+	Building:
+		Dimensions: 4,4
+		Footprint: =xx= xxxx =xx= ====
+		LocalCenterOffset: 0,-500,0
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1024, -1136
+			BottomRight: 1024, 856
+		TargetableOffsets: -500,-512,0, -500,512,0, 938,-512,0, 938,512,0 # Y,X,Z - Y uses dark space magic. do NOT touch or kittens will die!
+	Selectable:
+		Bounds: 3072, 2048, 0, -512
+	AdvancedSelectionDecorations:
+		Offset: 0,-10
+	Researchable:
+		Offset: 0,-73
+	TechnicianRepairable:
+		Offset: 0,-20
+	Exit:
+		SpawnOffset: -0c300,-0c850,0
+		ExitCell: -1,2
+		Facing: 256
+	RallyPoint:
+		Path: 1,3
+		LineWidth: 2
+		Image: survivors_rallypoint
+		FlagSequence: flag
+
+
+evolved_vehicle_missilecrab:
+	Inherits@1: ^CoreVehicle
+	Inherits@2: ^CoreTurret
+	Inherits@3: ^CoreHeavyVehicle
+	Tooltip:
+		Name: Missile Crab
+	Valued:
+		Cost: 1500
+	Health:
+		HP: 2500
+	Mobile:
+		Speed: 45
+		TurnSpeed: 32
+	TechLevelBuildable:
+		Prerequisites: evolved_beasts
+		BuildDuration: 1000
+		Level: 5
+	RevealsShroud:
+		Range: 7c0
+	Voiced:
+		VoiceSet: evolved_vehicle_missilecrab
+	OffsetsArmament:
+		MuzzlePalette:
+		Weapon: evolved_vehicle_missilecrab
+	Turreted:
+		TurnSpeed: 80
+	AdvancedSelectionDecorations:
+		Offset: 0,-3
+	Veterancy:
+		Experience: 3000, 4000
+
+evolved_vehicle_derrick:
+	Inherits: ^oil_derrick
+	Tooltip:
+		Name: Derrick
+	Valued:
+		Cost: 1000
+	Health:
+		HP: 4000
+	Mobile:
+		Speed: 40
+		TurnSpeed: 32
+	TechLevelBuildable:
+		Prerequisites: evolved_vehicles
+		BuildDuration: 500
+		Level: 0
+	RevealsShroud:
+		Range: 7c0
+	DeploysOnActor:
+		IntoActor: evolved_building_drillrig
+	AdvancedSelectionDecorations:
+		Offset: -2,3
+	Voiced:
+		VoiceSet: EvolvedVoice
+
+evolved_building_holding_pen:
+	Inherits@1: ^CoreBuilding
+	Inherits@2: ^sacrifices_infantry
+	Tooltip:
+		Name: Holding Pen
+	Valued:
+		Cost: 500
+	Health:
+		HP: 3000
+	SaboteurConquerable:
+		Population: 2
+	Building:
+		Dimensions: 4,3
+		Footprint: xxxx xxx= ====
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1024, -1536
+			BottomRight: 1024, 512
+		TargetableOffsets: 500,-600,0, 350,100,0, 1400,-512,0, 1300,100,0 # Y,X,Z - Y uses dark space magic. do NOT touch or kittens will die!
+	Selectable:
+		Bounds: 3072, 2048, -512, -512
+	AdvancedSelectionDecorations:
+		Offset: 19,-14
+	TechnicianRepairable:
+		Offset: 10,-30
+	Exit:
+		SpawnOffset: 0c-700,-0c220,0
+		ExitCell: -1,2
+		Facing: 256
+	RallyPoint:
+		Path: -1,2
+		LineWidth: 2
+		Image: evolved_rallypoint
+		FlagSequence: flag
+	Sacrificer:
+		Summon: evolved_infantry_kingzog
+
+
+evolved_building_beastforge:
+	Inherits@1: ^CoreBuilding
+	Inherits@2: ^produces_vehicles
+	Inherits@3: ^animated_building
+	Inherits@4: ^researchable
+	Tooltip:
+		Name: Beast Forge
+	TooltipDescription:
+		Description: Produces vehicles & beasts
+	Valued:
+		Cost: 1500
+	Health:
+		HP: 4000
+	TechLevelBuildable:
+		Prerequisites: evolved_buildings
+		BuildDuration: 1000
+		Level: -1
+	SaboteurConquerable:
+		Population: 2
+	ProvidesPrerequisite@base:
+		Prerequisite: evolved_base
+		RequiresCondition: !selfconstructing && !deconstructing
+	ProvidesPrerequisite@vehicles:
+		Prerequisite: evolved_vehicles
+	ProvidesPrerequisite@beasts:
+		Prerequisite: evolved_beasts
+	Building:
+		Dimensions: 5,4
+		Footprint: =xxx= xxxxx ===== =====
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1536, -2048
+			BottomRight: 1536, 0
+		TargetableOffsets: 819,-1024,0, 819,0,0, 819,1024,0, 2458,-1024,0, 2458,0,0, 2458,1024,0 # Y,X,Z - Y uses dark space magic. do NOT touch or kittens will die!
+	Selectable:
+		Bounds: 4096, 3072, 0, -1024
+	AdvancedSelectionDecorations:
+		Offset: -1,-7
+	Researchable:
+		Offset: 0,-119
+	TechnicianRepairable:
+		Offset: 10,-50
+	Exit:
+		SpawnOffset: -1c0,0c50,0
+		ExitCell: 0,2
+		Facing: 300
+	RallyPoint:
+		Path: 0,2
+		LineWidth: 2
+		Image: evolved_rallypoint
+		FlagSequence: flag
+
+
+evolved_tower_rotarycannon:
+	Inherits@1: ^CoreTower
+	Inherits@2: ^CoreTurret
+	Inherits@2: ^has_muzzle
+	Tooltip:
+		Name: Rotary Cannon
+	Valued:
+		Cost: 2500
+	Health:
+		HP: 2500
+	TechLevelBuildable:
+		Prerequisites: evolved_towers
+		BuildDuration: 1200
+		Level: 4
+	RevealsShroud:
+		Range: 10c0
+	OffsetsArmament:
+		MuzzlePalette:
+		Weapon: evolved_tower_rotarycannon
+		LocalOffset: 0,0,500
+	WithTurretAttackAnimation:
+		Sequence: shoot
+	Turreted:
+		TurnSpeed: 80
+	AdvancedSelectionDecorations:
+		Offset: 0,-5
+	TechnicianRepairable:
+		Offset: 0,-15
+	WithLoopedAttackSound:
+		Report: openkrush_gen1|actors/evolved/towers/rotarycannon/sound.wav
+		Delay: 4
+
+
+
+evolved_vehicle_giantbeetle:
+	Inherits@1: ^CoreVehicle
+	Inherits@2: ^CoreArmedSelf
+	Tooltip:
+		Name: Giant Beetle
+	Valued:
+		Cost: 1100
+	Health:
+		HP: 1500
+	Mobile:
+		Speed: 55
+		TurnSpeed: 32
+	TechLevelBuildable:
+		Prerequisites: evolved_beasts
+		BuildDuration: 850
+		Level: 4
+	RevealsShroud:
+		Range: 7c0
+	Voiced:
+		VoiceSet: evolved_vehicle_giantbeetle
+	OffsetsArmament:
+		MuzzlePalette:
+		Weapon: evolved_vehicle_giantbeetle
+	AdvancedSelectionDecorations:
+		Offset: 0,-3
+	Veterancy:
+		Experience: 2500, 3500
+
+evolved_vehicle_chopper:
+	Inherits@1: ^CoreVehicle
+	Inherits@2: ^CoreArmedSelf
+	Inherits@3: ^CoreLightVehicle
+	Tooltip:
+		Name: Chopper
+	Valued:
+		Cost: 150
+	Health:
+		HP: 400
+	Mobile:
+		Speed: 115
+		TurnSpeed: 164
+	TechLevelBuildable:
+		Prerequisites: evolved_vehicles
+		BuildDuration: 125
+		Level: -1
+	RevealsShroud:
+		Range: 11c0
+	OffsetsArmament:
+		MuzzlePalette:
+		Weapon: evolved_vehicle_chopper
+	AdvancedSelectionDecorations:
+		Offset: 0,-2
+	Veterancy:
+	VeterancyVoiced:
+		VoiceSets: EvolvedVoice, EvolvedVeteranVoice
+
+survivors_infantry_rpglauncher:
+	Inherits@1: ^CoreInfantry
+	Inherits@2: ^CoreArmedSelf
+	Tooltip:
+		Name: RPG Launcher
+	Valued:
+		Cost: 165
+	Health:
+		HP: 400
+	Mobile:
+		Speed: 50
+	RevealsShroud:
+		Range: 5c0
+	TechLevelBuildable:
+		Prerequisites: survivors_infantry
+		BuildDuration: 200
+		Level: 4
+	OffsetsArmament:
+		MuzzlePalette:
+		Weapon: survivors_infantry_rpglauncher
+	Veterancy:
+		HealRates: 1,2
+		Experience: 1700, 2700
+	VeterancyVoiced:
+		VoiceSets: SurvivorsVoice, SurvivorsVeteranVoice
+
+survivors_building_repairbay:
+	Inherits@1: ^CoreBuilding
+	Inherits@2: ^repairs_vehicles
+	Inherits@3: ^researchable
+	Tooltip:
+		Name: Repair Bay
+	Valued:
+		Cost: 500
+	Health:
+		HP: 3000
+	TechLevelBuildable:
+		Prerequisites: survivors_buildings
+		BuildDuration: 750
+		Level: 1
+	SaboteurConquerable:
+		Population: 1
+	ProvidesPrerequisite@base:
+		Prerequisite: survivors_base
+		RequiresCondition: !selfconstructing && !deconstructing
+	Building:
+		Dimensions: 4,4
+		Footprint: xxxx xxxx ==== ====
+	HitShape:
+		Type: Rectangle
+			TopLeft: -2048, -2048
+			BottomRight: 1024, 0
+		TargetableOffsets: 1000,-1336,0, 819,-512,0, 819,512,0, 1800,-1000,0, 2300,-212,0, 2458,512,0 # Y,X,Z - Y uses dark space magic. do NOT touch or kittens will die!
+
+
+evolved_aircraft_wasp:
+	Inherits@1: ^CoreAircraft
+	Inherits@2: ^superweapon_bomber
+	Tooltip:
+		Name: Wasp
+	TooltipDescription:
+		Description: Goes boom!
+	Health:
+		HP: 1500
+	Aircraft:
+		Speed: 200
+		TurnSpeed: 12
+	RevealsShroud:
+		Range: 5c0
+		Type: CenterPosition
+	OffsetsArmament:
+		MuzzlePalette:
+		Weapon: evolved_aircraft_wasp
+	Voiced:
+		VoiceSet: evolved_aircraft_wasp
+	AmbientSound:
+		SoundFiles: mute.slv|162.wav
+
+survivors_building_powerstation:
+	Inherits@1: ^CoreBuilding
+	Inherits@2: ^processes_oil
+	Inherits@3: ^animated_building
+	Inherits@4: ^researchable
+	Tooltip:
+		Name: Power Station
+	Valued:
+		Cost: 1500
+	Health:
+		HP: 4000
+	TechLevelBuildable:
+		Prerequisites: survivors_buildings
+		BuildDuration: 850
+		BuildLimit: 8
+	SaboteurConquerable:
+		Population: 2
+	ProvidesPrerequisite@base:
+		Prerequisite: survivors_base
+		RequiresCondition: !selfconstructing && !deconstructing
+	Building:
+		Dimensions: 4,3
+		Footprint: xxxx xxxx ====
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1024, -1536
+			BottomRight: 1024, 512
+		TargetableOffsets: 800,-800,0, 400,300,0, 2000,-600,0, 1600,450,0 # Y,X,Z - Y uses dark space magic. do NOT touch or kittens will die!
+	Selectable:
+		Bounds: 2560, 2048, -256, -1024
+	FreeActor:
+		Actor: survivors_vehicle_oiltanker
+		SpawnOffset: 1,2
+		Facing: 384
+		RequiresCondition: !selfconstructing && !deconstructing
+	Researchable:
+		Offset: 8,-131
+	AdvancedSelectionDecorations:
+		Offset: 0,-31
+	TechnicianRepairable:
+		Offset: 0,-30
+	Dock:
+		Position: -128,352,0
+
+
+
+survivors_vehicle_anacondatank:
+	Inherits@1: ^CoreVehicle
+	Inherits@2: ^CoreTurret
+	Inherits@3: ^has_muzzle
+	Tooltip:
+		Name: Anaconda Tank
+	Valued:
+		Cost: 900
+	Health:
+		HP: 1800
+	Mobile:
+		Speed: 55
+		TurnSpeed: 32
+	TechLevelBuildable:
+		Prerequisites: survivors_vehicles
+		BuildDuration: 650
+		Level: 3
+	RevealsShroud:
+		Range: 7c0
+	OffsetsArmament:
+		MuzzlePalette:
+		Weapon: survivors_vehicle_anacondatank
+	Turreted:
+		TurnSpeed: 80
+	AdvancedSelectionDecorations:
+		Offset: 0,-10
+	Veterancy:
+		Experience: 1500, 2500
+	VeterancyVoiced:
+		VoiceSets: SurvivorsVoice, SurvivorsVeteranVoice, SurvivorsVeteranVoice
+
+evolved_tower_machinegunnest:
+	Inherits@1: ^CoreTower
+	Inherits@2: ^CoreTurret
+	Inherits@2: ^has_muzzle
+	Tooltip:
+		Name: Machinegun Nest
+	Valued:
+		Cost: 750
+	Health:
+		HP: 1500
+	TechLevelBuildable:
+		Prerequisites: evolved_towers
+		BuildDuration: 500
+		Level: 1
+	RevealsShroud:
+		Range: 10c0
+	OffsetsArmament:
+		MuzzlePalette:
+		Weapon: evolved_tower_machinegunnest
+		LocalOffset: 0,25,450
+	Turreted:
+		TurnSpeed: 80
+	AdvancedSelectionDecorations:
+		Offset: -2,-20
+	TechnicianRepairable:
+		Offset: 0,-15
+
+survivors_building_machineshop:
+	Inherits@1: ^CoreBuilding
+	Inherits@2: ^produces_vehicles
+	Inherits@3: ^animated_building
+	Inherits@4: ^researchable
+	Tooltip:
+		Name: Machine Shop
+	Valued:
+		Cost: 1500
+	Health:
+		HP: 4000
+	TechLevelBuildable:
+		Prerequisites: survivors_buildings
+		BuildDuration: 1000
+	SaboteurConquerable:
+		Population: 2
+	ProvidesPrerequisite:
+		Prerequisite: survivors_vehicles
+	ProvidesPrerequisite@base:
+		Prerequisite: survivors_base
+		RequiresCondition: !selfconstructing && !deconstructing
+	Building:
+		Dimensions: 4,4
+		Footprint: xxxx xxxx ==== ====
+	HitShape:
+		Type: Rectangle
+			TopLeft: -1024, -2048
+			BottomRight: 1024, 0
+		TargetableOffsets: 819,-512,0, 819,512,0, 2458,-512,0, 2458,512,0 # Y,X,Z - Y uses dark space magic. do NOT touch or kittens will die!
+	Selectable:
+		Bounds: 3072, 2048, 0, -1536
+	AdvancedSelectionDecorations:
+		Offset: -5,-9
+	Researchable:
+		Offset: 5,-123
+	TechnicianRepairable:
+		Offset: 10,-60
+	Exit:
+		SpawnOffset: -1c-330,0c60,500
+		ExitCell: -1,2
+		Facing: 300
+	RallyPoint:
+		Path: 0,3
+		LineWidth: 2
+		Image: survivors_rallypoint
+		FlagSequence: flag
+
+
+survivors_tower_guardtower:
+	Inherits@1: ^CoreTower
+	Inherits@2: ^CoreTurret
+	Inherits@2: ^has_muzzle
+	Tooltip:
+		Name: Guard Tower
+	Valued:
+		Cost: 750
+	Health:
+		HP: 1500
+	TechLevelBuildable:
+		Prerequisites: survivors_towers
+		BuildDuration: 500
+		Level: 1
+	RevealsShroud:
+		Range: 10c0
+	OffsetsArmament:
+		MuzzlePalette:
+		Weapon: survivors_tower_guardtower
+		LocalOffset: 0,0,500
+	Turreted:
+		TurnSpeed: 80
+	AdvancedSelectionDecorations:
+		Offset: -1,-23
+	TechnicianRepairable:
+		Offset: 0,-15
+
+evolved_infantry_pyromaniac:
+	Inherits@1: ^CoreInfantry
+	Inherits@2: ^CoreArmedSelf
+	Tooltip:
+		Name: Pyromaniac
+	Valued:
+		Cost: 100
+	Health:
+		HP: 400
+	Mobile:
+		Speed: 50
+	RevealsShroud:
+		Range: 5c0
+	TechLevelBuildable:
+		Prerequisites: evolved_infantry
+		BuildDuration: 125
+		Level: 2
+	OffsetsArmament:
+		MuzzlePalette:
+		Weapon: evolved_infantry_pyromaniac
+	Veterancy:
+		HealRates: 1,2
+		Experience: 2000, 3000
+	VeterancyVoiced:
+		VoiceSets: EvolvedVoice, EvolvedVeteranVoice
+
+
+
+
+
+
+
+	# The spawnpoint for player actors.
+mpspawn:
+	# This actor is not affected by shroud or fog.
+	AlwaysVisible:
+	# Required for the mpspawn to have an location in the world, but not occupy it for anything.
+	Immobile:
+		OccupiesSpace: false
+	# Use simple sprite based marker in editor.
+	WithSpriteBody:
+	# Prevent the spawnpoint to be seen ingame.
+	RenderSpritesEditorOnly:
+		Palette: mpspawn
+	# Move spawnpoint in special system category in editor.
+	MapEditorData:
+		Categories: System
+
+# Default palette for the mpspawn.
+^Palettes:
+	PaletteFromPng@mpspawn:
+		Name: mpspawn
+		Filename: actors/mpspawn/frames.png
